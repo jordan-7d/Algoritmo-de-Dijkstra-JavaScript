@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<!--
+  INTERFAZ GRÁFICA (versión editable)
+  Algoritmo de Dijkstra - UTC
+  Responsable: Integrante 2
+-->
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Algoritmo de Dijkstra</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <h1>Algoritmo de Dijkstra</h1>
+  <p>Universidad Técnica de Cotopaxi · Programación Avanzada</p>
+
+  <div class="caja">
+
+    <h3>1. Agregar conexiones del grafo</h3>
+
+    <label>Nodo A:</label>
+    <input type="text" id="inputNodoA" placeholder="Ej: A" />
+
+    <label>Nodo B:</label>
+    <input type="text" id="inputNodoB" placeholder="Ej: B" />
+
+    <label>Peso (distancia):</label>
+    <input type="number" id="inputPeso" placeholder="Ej: 4" />
+
+    <button id="btnAgregar">Agregar conexión</button>
+    <button id="btnReiniciar" class="secundario">Reiniciar grafo</button>
+
+    <h3>2. Conexiones agregadas</h3>
+    <ul id="listaConexiones">
+      <li><em>Aún no hay conexiones</em></li>
+    </ul>
+
+    <h3>3. Calcular ruta más corta</h3>
+
+    <label>Nodo de inicio:</label>
+    <input type="text" id="inputInicio" placeholder="Ej: A" />
+
+    <label>Nodo destino:</label>
+    <input type="text" id="inputDestino" placeholder="Ej: D" />
+
+    <button id="btnCalcular">Calcular</button>
+
+    <div id="resultado"></div>
+  </div>
+
+  <footer>Integrantes: Delgado Jordan · Mendoza Antony · Proaño Nicolás · Quinatoa Anthony</footer>
+
+  <script src="dijkstra.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
