@@ -1,51 +1,77 @@
 <!DOCTYPE html>
 <html lang="es">
+
+<html lang="es"> <!-- lang="es" ayuda al navegador/lector de pantalla a saber que el contenido está en español -->
 <head>
-  <meta charset="UTF-8" />
-  <title>Algoritmo de Dijkstra</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8" /> <!-- permite usar tildes, ñ, etc. sin que se vean mal -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- hace la página responsive en celulares -->
+  <title>Algoritmo de Dijkstra - UTC (Cytoscape)</title>
+  <link rel="stylesheet" href="style.css" /> <!-- carga los estilos del proyecto -->
+  <!-- Cytoscape.js: librería que dibuja el grafo y maneja clics/arrastre por nosotros -->
+  <script src="https://unpkg.com/cytoscape/dist/cytoscape.min.js"></script>
 </head>
 <body>
 
-  <h1>Algoritmo de Dijkstra</h1>
-  <p>Universidad Técnica de Cotopaxi · Programación Avanzada</p>
+  <!-- Encabezado del proyecto -->
+  <header>
+    <h1>Algoritmo de Dijkstra</h1>
+    <p>Universidad Técnica de Cotopaxi · Programación Avanzada</p>
+  </header>
 
-  <div class="caja">
+  <main> <!-- contenedor flex que pone los dos paneles uno junto al otro -->
 
-    <h3>1. Agregar conexiones del grafo</h3>
+    <!-- Panel izquierdo: controles del grafo y del cálculo -->
+    <section class="panel" id="panelGrafo">
 
-    <label>Nodo A:</label>
-    <input type="text" id="inputNodoA" placeholder="Ej: A" />
+      <!-- Bloque 1: construcción del grafo (todo el trabajo real ocurre con clics en el panel derecho) -->
+      <h2>1. Construye el grafo</h2>
+      <button id="btnReiniciar" class="secundario">🗑 Limpiar todo</button> <!-- borra todos los nodos y aristas del grafo -->
 
-    <label>Nodo B:</label>
-    <input type="text" id="inputNodoB" placeholder="Ej: B" />
+      <hr /> <!-- separador visual entre secciones -->
 
-    <label>Peso (distancia):</label>
-    <input type="number" id="inputPeso" placeholder="Ej: 4" />
+      <!-- Bloque 2: cálculo de la ruta más corta -->
+      <h2>2. Calcular ruta</h2>
 
-    <button id="btnAgregar">Agregar conexión</button>
-    <button id="btnReiniciar" class="secundario">Reiniciar grafo</button>
+      <div class="fila">
+        <label for="inputInicio">Nodo inicio:</label>
+        <input type="text" id="inputInicio" placeholder="Ej: A" /> <!-- nombre del nodo donde empieza la búsqueda -->
+      </div>
 
-    <h3>2. Conexiones agregadas</h3>
-    <ul id="listaConexiones">
-      <li><em>Aún no hay conexiones</em></li>
-    </ul>
+      <div class="fila">
+        <label for="inputDestino">Nodo destino:</label>
+        <input type="text" id="inputDestino" placeholder="Ej: D" /> <!-- nombre del nodo al que se quiere llegar -->
+      </div>
 
-    <h3>3. Calcular ruta más corta</h3>
+      <button id="btnCalcular">Calcular ruta más corta</button> <!-- dispara el algoritmo de Dijkstra en app.js -->
 
-    <label>Nodo de inicio:</label>
-    <input type="text" id="inputInicio" placeholder="Ej: A" />
+      <hr />
 
-    <label>Nodo destino:</label>
-    <input type="text" id="inputDestino" placeholder="Ej: D" />
+      <!-- Bloque 3: resultado del camino más corto -->
+      <h3>Camino más corto</h3>
+      <p id="textoCamino">—</p> <!-- app.js reemplaza este texto con el camino y la distancia total -->
+    </section>
 
-    <button id="btnCalcular">Calcular</button>
+    <!-- Panel derecho: lienzo interactivo donde vive el grafo (Cytoscape) -->
+    <section class="panel" id="panelResultado">
+      <h2>Grafo interactivo</h2>
+      <div id="cy"></div> <!-- Cytoscape "engancha" el grafo a este div y lo dibuja adentro -->
+    </section>
+  </main>
 
-    <div id="resultado"></div>
+  <!-- Modal emergente: pide el peso de una arista al conectar dos nodos -->
+  <div id="modalPeso" class="modal oculto"> <!-- clase "oculto" lo mantiene invisible hasta que app.js lo active -->
+    <div class="modal-caja">
+      <p>Peso de la conexión <strong id="modalLabel"></strong>:</p> <!-- muestra "A → B" según los nodos elegidos -->
+      <input type="number" id="modalInput" min="1" placeholder="Ej: 5" /> <!-- aquí el usuario escribe el peso de la arista -->
+      <div>
+        <button id="modalConfirmar">Confirmar</button> <!-- guarda la arista con el peso ingresado -->
+        <button id="modalCancelar" class="secundario">Cancelar</button> <!-- cierra el modal sin crear la arista -->
+      </div>
+    </div>
   </div>
 
-  <footer>Integrantes: Delgado Jordan · Mendoza Antony · Proaño Nicolás · Quinatoa Anthony</footer>
-
+  <!-- dijkstra.js debe ir antes que app.js: app.js usa sus funciones -->
   <script src="dijkstra.js"></script>
   <script src="app.js"></script>
 </body>
+</html>
