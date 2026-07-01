@@ -1,77 +1,114 @@
-/* ESTILOS (versión básica)
-   Responsable: Integrante 3 */
+/* ── Paleta de colores del sitio, reutilizable con var(--nombre) ── */
+:root {
+  --azul-oscuro: #1b2a4a;
+  --azul: #2e5cb8;
+  --celeste: #4f9bf0;
+  --gris-claro: #f4f6fa;
+  --gris-borde: #d7dce5;
+  --verde-ok: #2e9e5b;
+  --texto: #1f2430;
+}
 
+/* ── Reset básico: el padding/border ya no suman al ancho total ── */
+* {
+  box-sizing: border-box; /* evita que un elemento se desborde al agregarle padding o borde */
+}
+
+/* ── Estilos generales del body (fondo y tipografía de toda la página) ── */
 body {
-  font-family: Arial, sans-serif;
-  text-align: center;
-  background: #f4f6fa;
-  color: #222;
-  padding: 30px;
+  margin: 0; /* quita el margen blanco por defecto del navegador */
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  background: var(--gris-claro);
+  color: var(--texto);
 }
 
-h1 {
-  color: #1b2a4a;
-  margin-bottom: 4px;
-}
-
-.caja {
-  background: white;
-  max-width: 400px;
-  margin: 20px auto;
-  padding: 20px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  text-align: left;
-}
-
-label {
-  display: block;
-  margin-top: 12px;
-  font-weight: bold;
-}
-
-input {
-  width: 100%;
-  padding: 8px;
-  margin-top: 4px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-button {
-  margin-top: 16px;
-  padding: 10px 16px;
-  background: #2e5cb8;
+/* ── Encabezado principal (franja azul con el título) ── */
+header {
+  background: var(--azul-oscuro);
   color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+  padding: 24px 32px;
+  text-align: center; /* centra el título y el subtítulo */
 }
 
-button:hover {
-  background: #1b2a4a;
+header h1 {
+  margin: 0 0 6px 0; /* solo deja un pequeño espacio debajo del título */
+  font-size: 26px;
 }
 
-#resultado {
-  margin-top: 16px;
-  font-size: 15px;
+header p {
+  margin: 0;
+  font-size: 14px;
+  color: #c4d2f0;
 }
 
-h3 {
-  color: #1b2a4a;
-  margin-top: 22px;
-  border-top: 1px solid #ddd;
-  padding-top: 12px;
+/* ── Contenedor principal: acomoda los paneles uno junto al otro ── */
+main {
+  display: flex; /* pone los paneles en fila */
+  flex-wrap: wrap; /* si no caben, pasan a la siguiente línea (responsive) */
+  gap: 20px; /* espacio entre paneles */
+  padding: 24px;
+  max-width: 1100px; /* evita que se estire demasiado en pantallas grandes */
+  margin: 0 auto; /* centra el contenido horizontalmente */
 }
 
-#listaConexiones {
-  background: #f4f6fa;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  padding: 10px 20px;
+/* ── Tarjeta blanca que envuelve cada sección (grafo, controles, etc.) ── */
+.panel {
+  flex: 1 1 420px; /* cada panel ocupa al menos 420px y crece si sobra espacio */
+  background: white;
+  border: 1px solid var(--gris-borde);
+  border-radius: 10px;
+  padding: 20px 24px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); /* sombra suave para dar profundidad */
+}
+
+.panel h2 {
+  margin-top: 0;
+  color: var(--azul-oscuro);
+  font-size: 18px;
+  border-bottom: 2px solid var(--celeste); /* línea de acento debajo del título */
+  padding-bottom: 8px;
+}
+
+/* ── Fila de formulario: agrupa una etiqueta con su input ── */
+.fila {
+  display: flex; /* pone el label y el input en la misma línea */
+  align-items: center; /* los alinea verticalmente */
+  gap: 10px;
+  margin: 12px 0;
+}
+
+.fila label {
+  flex: 0 0 180px; /* ancho fijo para que todas las etiquetas queden alineadas */
   font-size: 14px;
 }
 
+.fila input {
+  flex: 1; /* el input ocupa todo el espacio restante de la fila */
+  padding: 8px 10px;
+  border: 1px solid var(--gris-borde);
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+/* ── Botones (estilo base) ── */
+button {
+  background: var(--azul);
+  color: white;
+  border: none; /* quita el borde por defecto del navegador */
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer; /* muestra la manito al pasar el mouse */
+  margin-top: 8px;
+  margin-right: 8px;
+  transition: background 0.15s ease-in-out; /* suaviza el cambio de color al hacer hover */
+}
+
+button:hover {
+  background: var(--azul-oscuro); /* se oscurece al pasar el mouse */
+}
+
+/* ── Variante de botón secundario (ej: "Cancelar", "Limpiar") ── */
 button.secundario {
   background: #b3b9c4;
 }
@@ -80,8 +117,63 @@ button.secundario:hover {
   background: #8d94a1;
 }
 
+/* Contenedor del grafo de Cytoscape */
+#cy {
+  width: 100%;
+  height: 500px; /* alto fijo del lienzo donde Cytoscape dibuja el grafo */
+  background: var(--gris-claro);
+  border: 1px solid var(--gris-borde);
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+/* ── Texto que muestra el camino más corto calculado ── */
+#textoCamino {
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--verde-ok); /* verde para indicar un resultado "exitoso" */
+}
+
+/* ── Pie de página con los integrantes del grupo ── */
 footer {
-  margin-top: 30px;
+  text-align: center;
   font-size: 13px;
   color: #777;
+  padding: 18px;
 }
+
+/* ── Modal de peso ── */
+/* Fondo oscuro semitransparente que cubre toda la pantalla al pedir el peso de una arista */
+.modal {
+  position: fixed; /* queda fijo aunque se haga scroll */
+  inset: 0; /* equivale a top/right/bottom/left: 0, cubre toda la pantalla */
+  background: rgba(0,0,0,0.4); /* oscurece el fondo detrás del modal */
+  display: flex;
+  align-items: center; /* centra la caja verticalmente */
+  justify-content: center; /* centra la caja horizontalmente */
+  z-index: 100; /* asegura que quede por encima de todo lo demás */
+}
+.modal.oculto { display: none; } /* clase que se agrega/quita por JS para mostrar u ocultar el modal */
+
+/* ── Caja blanca del modal (donde va el input del peso) ── */
+.modal-caja {
+  background: white;
+  border-radius: 10px;
+  padding: 24px 28px;
+  min-width: 260px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  text-align: center;
+}
+.modal-caja p { margin-bottom: 12px; font-size: 15px; }
+.modal-caja input {
+  width: 100%;
+  padding: 8px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 14px;
+}
+.modal-caja div { display: flex; gap: 10px; justify-content: center; } /* alinea los botones Confirmar/Cancelar */
+
+/* ── Línea divisoria simple entre secciones ── */
+hr { border: none; border-top: 1px solid #ddd; margin: 16px 0; }
